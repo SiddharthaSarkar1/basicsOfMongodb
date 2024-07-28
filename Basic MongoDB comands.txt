@@ -1,0 +1,228 @@
+
+C:\Users\SID>mongosh
+
+test> show dbs
+HelloSidDB          160.00 KiB
+SidFirstDB           48.00 KiB
+SiddharthaBlog       56.00 KiB
+admin                40.00 KiB
+config               72.00 KiB
+ecommerce_sid       180.00 KiB
+local                96.00 KiB
+mynewdatabasesid     72.00 KiB
+siddharthathapatch  108.00 KiB
+students-api        144.00 KiB
+test> db.getName()
+test
+test> const name = "Siddhartha"
+
+test> name
+Siddhartha
+test> const data = {"name": "Siddhartha", "age": 20}
+
+test> data
+{ name: 'Siddhartha', age: 20 }
+test> show collections
+
+test> use sidd_learning2024
+switched to db sidd_learning2024
+sidd_learning2024> db.movies.insertOne({"name": "Extraction 2", ratings: 4})
+{
+  acknowledged: true,
+  insertedId: ObjectId("66a524ab3815ec6bd459523f")
+}
+sidd_learning2024> show collections
+movies
+sidd_learning2024> db.movies.insertMany.help()
+
+  db.collection.insertMany(documents, options):
+
+  Inserts multiple documents into a collection.
+
+  For more information on usage: https://docs.mongodb.com/manual/reference/method/db.collection.insertMany
+sidd_learning2024> m1 = {"name": "John Wick", ratings: 3}
+{ name: 'John Wick', ratings: 3 }
+sidd_learning2024> m2 = {"name": "Transformers", ratings: 4}
+{ name: 'Transformers', ratings: 4 }
+sidd_learning2024> m3 = {"name": "The Equalizer 3", ratings: 5}
+{ name: 'The Equalizer 3', ratings: 5 }
+sidd_learning2024> db.movies.insertMany([m1, m2, m3])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("66a532cf3815ec6bd4595240"),
+    '1': ObjectId("66a532cf3815ec6bd4595241"),
+    '2': ObjectId("66a532cf3815ec6bd4595242")
+  }
+}
+sidd_learning2024> db.movies.find()
+[
+  {
+    _id: ObjectId("66a524ab3815ec6bd459523f"),
+    name: 'Extraction 2',
+    ratings: 4
+  },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595240"),
+    name: 'John Wick',
+    ratings: 3
+  },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595241"),
+    name: 'Transformers',
+    ratings: 4
+  },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595242"),
+    name: 'The Equalizer 3',
+    ratings: 5
+  }
+]
+sidd_learning2024> db.movies.find({"name": "Extraction 2"})
+[
+  {
+    _id: ObjectId("66a524ab3815ec6bd459523f"),
+    name: 'Extraction 2',
+    ratings: 4
+  }
+]
+sidd_learning2024> db.movies.find({"name": "Extraction 2"}, {"name" : 1})
+[ { _id: ObjectId("66a524ab3815ec6bd459523f"), name: 'Extraction 2' } ]
+sidd_learning2024> db.movies.find().count()
+4
+sidd_learning2024> db.movies.find({}, {"name" : 1})
+[
+  { _id: ObjectId("66a524ab3815ec6bd459523f"), name: 'Extraction 2' },
+  { _id: ObjectId("66a532cf3815ec6bd4595240"), name: 'John Wick' },
+  { _id: ObjectId("66a532cf3815ec6bd4595241"), name: 'Transformers' },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595242"),
+    name: 'The Equalizer 3'
+  }
+]
+sidd_learning2024> db.movies.find({}, {"name" : 1}).sort({"name": 1})
+[
+  { _id: ObjectId("66a524ab3815ec6bd459523f"), name: 'Extraction 2' },
+  { _id: ObjectId("66a532cf3815ec6bd4595240"), name: 'John Wick' },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595242"),
+    name: 'The Equalizer 3'
+  },
+  { _id: ObjectId("66a532cf3815ec6bd4595241"), name: 'Transformers' }
+]
+sidd_learning2024> db.movies.find({}, {"name" : 1}).sort({"name": -1})
+[
+  { _id: ObjectId("66a532cf3815ec6bd4595241"), name: 'Transformers' },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595242"),
+    name: 'The Equalizer 3'
+  },
+  { _id: ObjectId("66a532cf3815ec6bd4595240"), name: 'John Wick' },
+  { _id: ObjectId("66a524ab3815ec6bd459523f"), name: 'Extraction 2' }
+]
+sidd_learning2024> db.movies.find({}, {"name" : 1}).sort({"name": 1}).skip(2)
+[
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595242"),
+    name: 'The Equalizer 3'
+  },
+  { _id: ObjectId("66a532cf3815ec6bd4595241"), name: 'Transformers' }
+]
+sidd_learning2024> db.movies.find()
+[
+  {
+    _id: ObjectId("66a524ab3815ec6bd459523f"),
+    name: 'Extraction 2',
+    ratings: 4
+  },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595240"),
+    name: 'John Wick',
+    ratings: 3
+  },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595241"),
+    name: 'Transformers',
+    ratings: 4
+  },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595242"),
+    name: 'The Equalizer 3',
+    ratings: 5
+  }
+]
+sidd_learning2024> db.movies.updateOne({"name": "Transformers"}, {$set: {ratings: 5}});
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+sidd_learning2024> db.movies.find()
+[
+  {
+    _id: ObjectId("66a524ab3815ec6bd459523f"),
+    name: 'Extraction 2',
+    ratings: 4
+  },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595240"),
+    name: 'John Wick',
+    ratings: 3
+  },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595241"),
+    name: 'Transformers',
+    ratings: 5
+  },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595242"),
+    name: 'The Equalizer 3',
+    ratings: 5
+  }
+]
+sidd_learning2024> db.movies.updateOne({"name": "Transformers"}, {$set: {"name": "Transformers Sidd's Update"}});
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+sidd_learning2024> db.movies.find()
+[
+  {
+    _id: ObjectId("66a524ab3815ec6bd459523f"),
+    name: 'Extraction 2',
+    ratings: 4
+  },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595240"),
+    name: 'John Wick',
+    ratings: 3
+  },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595241"),
+    name: "Transformers Sidd's Update",
+    ratings: 5
+  },
+  {
+    _id: ObjectId("66a532cf3815ec6bd4595242"),
+    name: 'The Equalizer 3',
+    ratings: 5
+  }
+]
+sidd_learning2024> const results = db.movies.find().toArray()
+
+sidd_learning2024> console.table(results)
+┌─────────┬──────────────────────────────────────┬──────────────────────────────┬─────────┐
+│ (index) │                 _id                  │             name             │ ratings │
+├─────────┼──────────────────────────────────────┼──────────────────────────────┼─────────┤
+│    0    │ ObjectId("66a524ab3815ec6bd459523f") │        'Extraction 2'        │    4    │
+│    1    │ ObjectId("66a532cf3815ec6bd4595240") │         'John Wick'          │    3    │
+│    2    │ ObjectId("66a532cf3815ec6bd4595241") │ "Transformers Sidd's Update" │    5    │
+│    3    │ ObjectId("66a532cf3815ec6bd4595242") │      'The Equalizer 3'       │    5    │
+└─────────┴──────────────────────────────────────┴──────────────────────────────┴─────────┘
+
+sidd_learning2024>
